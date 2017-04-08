@@ -3,14 +3,15 @@ var HTMLWebpackPlugin = require('html-webpack-plugin');
 
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: __dirname + '/public/chat.html',
-  filename: 'chat.html',
+  filename: '/index_bundle.js',
   inject: 'body'
+
 });
 
 module.exports = {
   entry: [
     'webpack-hot-middleware/client',
-    __dirname + '/app.js'
+    __dirname + '/app/index.js'
   ],
   output: {
     path: __dirname + '/public',

@@ -16,30 +16,37 @@ const services = require('./services');
 
 const webpack = require('webpack');
 const config = require('../webpack.config.js');
-const compiler = webpack(config);
 
 const app = feathers();
 
 app.configure(configuration(path.join(__dirname, '..')));
 
 app.use(compress())
-  .options('*', cors())
-  .use(cors())
-  //.use(favicon( path.join(app.get('public'), 'favicon.ico') ))
-  .use('/', serveStatic( app.get('public') ))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .configure(hooks())
   .configure(rest())
   .configure(socketio())
   .configure(services)
-  .configure(middleware)
-  .use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true
-  },
-  }));
-module.exports = app;
+  .configure(middleware);
+
+// Host the REST api under /api
+ const fullapp = feathers().use('/api', app);
+ const compiler = webpack(config);
+
+fullapp.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: false,
+    publicPath: config.output.publicPath,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    },
+  }))
+  .use(require('webpack-hot-middleware')(compiler))
+  .configure(configuration(path.join(__dirname, '..')))
+  .options('*', cors())
+  .use(cors())
+  .use('/', serveStatic( app.get('public') ))
+  .use(favicon( path.join(app.get('public'), 'favicon.ico') ));
+
+module.exports = fullapp;
