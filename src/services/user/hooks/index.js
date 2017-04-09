@@ -1,5 +1,7 @@
 'use strict';
 
+const newUser = require('./newUser');
+
 const getFbInfo = require('./getFbInfo');
 
 const globalHooks = require('../../../hooks');
@@ -11,26 +13,26 @@ exports.before = {
   find: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
+    auth.restrictToAuthenticated(),
   ],
   get: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: '_id' })
+    auth.restrictToOwner({ ownerField: '_id' }),
   ],
   create: [getFbInfo()],
   update: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: '_id' })
+    auth.restrictToOwner({ ownerField: '_id' }),
   ],
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: '_id' })
+    auth.restrictToOwner({ ownerField: '_id' }),
   ],
   remove: [
     auth.verifyToken(),
@@ -44,8 +46,8 @@ exports.after = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [newUser()],
   update: [],
-  patch: [],
+  patch: [newUser()],
   remove: []
 };

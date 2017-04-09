@@ -205,12 +205,16 @@ const Login = () => {
   return (
     <div id="app" className="">
       <Header />
-      <div className="container">
-        <div className="col-sm-6 col-sm-offset-3">
-          <a className="btn btn-block btn-social btn-lg btn-facebook">
-            <i className="fa fa-facebook"></i>
-            Sign in with Facebook
-          </a>
+      <div className="container" style={{"paddingTop": "150px"}}>
+        <div className="row">
+          <div className="col-md-4">
+          </div>
+          <div className="col-md-4">
+            <a className="btn btn-block  btn-facebook btn-lg"  style={{"color":"white", "textAlign":"center"}} href="/auth/facebook">
+              <i className="fa fa-facebook fa-lg"></i>
+              &nbsp; &nbsp;Sign in with Facebook
+            </a>
+          </div>
         </div>
         <div className="flex flex-center">
           <p><br/>Just one step to get started, we promise.</p>

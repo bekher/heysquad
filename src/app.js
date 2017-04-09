@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
+const ipcSock = require('socket.io-client')('http://localhost:8081/');
 
 const webpack = require('webpack');
 const config = require('../webpack.config.js');
@@ -43,5 +44,6 @@ app.use(compress())
   .use('/', serveStatic( app.get('public') ))
   .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   .configure(middleware);
+app.ipcSock = ipcSock;
 
 module.exports = app;
