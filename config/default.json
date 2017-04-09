@@ -14,6 +14,7 @@
       "clientSecret": "e251ed847ed46fd2234ccce92d489db4",
       "profileFields": ["id", "displayName", "email"],
       "permissions": {
+        "authType": "rerequest",
         "scope": ["public_profile","email","user_friends","user_status","user_posts","user_location"]
       }
     }
