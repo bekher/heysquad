@@ -1,0 +1,199 @@
+html {
+  height: 100%;
+}
+
+body {
+  overflow:auto;
+  overflow-x:hidden;
+  height: 100%;
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+.row {
+  padding: 0px;
+}
+
+.col-3, .col-9 {
+  padding: 0px;
+}
+
+/* */
+
+.nav-bar {
+  height: 8%;
+  min-height: 8%;
+  text-align: center;
+  background-color: #00B781;
+}
+
+.nav-bar-logo {
+  margin: auto;
+}
+
+/**/
+
+.chat {
+  min-height: 92%;
+  height: 92%;
+  display: block;
+  margin: 0px;
+}
+
+/**/
+/**/
+/* Sidebar */
+/**/
+/**/
+
+.sidebar {
+  border-right: 1px solid #D8D8D8;
+  height: 100%;
+}
+
+.sidebar-top {
+  position: absolute;
+  top: 0px;
+  height: 70px;
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+.sidebar-content {
+  margin-top: 70px;
+  padding-left: 15px;
+  padding-top: 6px;
+}
+
+.user-item {
+  display: table;
+  margin-top: 15px;
+}
+
+.user-item-pic {
+  display: table-cell;
+}
+
+.user-item-name {
+  display: table-cell;
+  vertical-align: top;
+  padding-top: 6px;
+  padding-left: 9px;
+  font-weight: bold;
+}
+
+.sidebar-bottom {
+  position: absolute;
+  bottom: 0px;
+  height: 73px;
+  width: 100%;
+  text-align: center;
+}
+
+.sidebar-friend-count {
+  height: 33px;
+  border-top: 1px solid #D8D8D8;
+  padding-top: 3px;
+}
+
+.sidebar-invite {
+  height: 40px;
+  background-color: #00B781;
+  padding-top: 6px;
+  color: white;
+}
+
+/**/
+/**/
+/* Messages List */
+/**/
+/**/
+
+.messages {
+  height: 100%;
+  overflow-y: scroll;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 98%;
+}
+
+.message {
+  width: 100%;
+  margin-top: 15px;
+  word-wrap: break-word;
+  display: table;
+}
+
+.message-left {
+  display: table-cell;
+}
+
+.message-user-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-image: url("/images/profile-pic-default.png");
+  background-size: 100%; 
+}
+
+.message-content {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 3px;
+  padding-left: 9px;
+  display: table-cell;
+}
+
+.message-user-name {
+  font-weight: bold;
+}
+
+.message-text {
+  display: block;
+}
+
+/* Message Input */
+
+.message-box {
+  position: absolute;
+  bottom: 0px;
+  height: 70px;
+
+  width: -moz-calc(100% - 24px);
+  width: -webkit-calc(100% - 24px);
+  width: calc(100% - 24px);
+}
+
+.message-field-container {
+  border-radius: 12px;
+  height: 45px;
+  vertical-align: center;
+  overflow: hidden;
+  border: 1px solid #D8D8D8;
+}
+
+input[type="text"], .btn-secondary {
+  border: 0px;
+}
+
+input[type="text"] {
+  padding-top: 5px;
+  padding-left: 12px;
+}
+
+.message-field-input {
+
+}
+
+.message-field-submit {
+  color: #00B781;
+  font-weight: bold;
+}
+
+
+
+

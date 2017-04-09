@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+        <title>HeySquad Chat</title>
+        <link rel="shortcut icon" href="img/favicon.png">
+        <link rel="stylesheet" href="//cdn.rawgit.com/feathersjs/feathers-chat/v0.1.0/public/base.css">
+        <link rel="stylesheet" href="//cdn.rawgit.com/feathersjs/feathers-chat/v0.1.0/public/chat.css">
+
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+        <!--<script src="//fb.me/react-0.15.5.min.js"></script>
+        <script src="//fb.me/react-dom-0.15.5.min.js"></script>-->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+        <script src="//unpkg.com/feathers-client@^1.0.0/dist/feathers.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+        <script type="text/javascript" src="javascript/jquery.min.js"></script>
+        <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="stylesheets/chat-temp.css">
+    </head>
+    <body>
+    <div class="container-fluid chat">
+      <div class="row nav-bar">
+        <img class="nav-bar-logo" src="/images/logo-hs-white.svg" height="40" alt="">
+      </div>
+      <div class="row chat">
+        <div class="col-3 sidebar">
+          <div class="sidebar-top">
+            <h2>👥 Go Hackathon</h2>
+          </div>
+          <div class="sidebar-content">
+            <div class="user-item">
+              <div class="user-item-pic">
+                <div class="message-user-pic"></div>
+              </div>
+              <div class="user-item-name">
+                Sam Drozdov
+              </div>
+            </div>
+            <div class="user-item">
+              <div class="user-item-pic">
+                <div class="message-user-pic"></div>
+              </div>
+              <div class="user-item-name">
+                Sam Drozdov
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-bottom">
+            <div class="sidebar-friend-count">
+              5 friends
+            </div>
+            <div class="sidebar-invite">
+              <img src="images/icon-share.png">
+              &nbsp Invite More Friends
+            </div>
+          </div>
+        </div>
+        <div class="col-9 messages">
+
+          <div class="message">
+            <div class="message-left">
+              <div class="message-user-pic"></div>
+            </div>
+            <div class="message-content">
+              <div class="message-user-name">
+                Sam Drozdov
+              </div>
+              <div class="message-text">
+                This is an example of message text. This is an example of message text. This is an example of message text. This is an example of message text. This is an example of message text.
+              </div>
+            </div>
+          </div>
+
+          <div class="message-box">
+
+            <div class="input-group message-field-container">
+              <input type="text" class="form-control message-field-input" placeholder="message friends...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary message-field-submit" type="button">SEND</button>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </body>
+</html>
