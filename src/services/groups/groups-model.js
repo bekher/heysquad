@@ -11,12 +11,19 @@ const Schema = mongoose.Schema;
 const groupsSchema = new Schema({
   createdAt: { type: Date, 'default': Date.now },
   updatedAt: { type: Date, 'default': Date.now },
+  query: {
+    type: String
+  },
   topic: {
     type: String
   },
   facebookIds: [{
     type: String
-  }]
+  }],
+  waiting: {
+    type: Boolean,
+    default: true
+  }
 });
 
 const groupsModel = mongoose.model('groups', groupsSchema);

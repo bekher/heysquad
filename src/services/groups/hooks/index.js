@@ -1,5 +1,7 @@
 'use strict';
 
+const groupCreate = require('./groupCreate');
+
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
@@ -22,7 +24,7 @@ exports.after = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [groupCreate()],
   update: [],
   patch: [],
   remove: []

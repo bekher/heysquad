@@ -87,7 +87,26 @@ const UserList = React.createClass({
     )
   }
 })
+/*
+class GroupList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
+  componentDidMount() {
+
+  }
+
+  componentWillUnmount() {
+
+  }
+
+  render() {
+
+  }
+}
+*/
 const MessageList = React.createClass({
   renderMessage(message) {
 
