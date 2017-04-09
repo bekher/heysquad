@@ -174,8 +174,7 @@ const Header = () => {
     <div id="header">
       <header className="title-bar flex flex-row flex-center">
         <div className="title-wrapper block center-element">
-          <img className="logo" src="http://feathersjs.com/img/feathers-logo-wide.png" alt="Feathers Logo" />
-          <span className="title">Chat</span>
+          <img className="logo" src="/images/logo-hs-green.svg" alt="HeySquad Login" />
         </div>
       </header>
     </div>
@@ -201,12 +200,18 @@ const Login = () => {
   return (
     <div id="app" className="flex flex-column">
       <Header />
-      <FacebookLogin
-        appId="155523298304980"
-        autoLoad={false}
-        fields="name,email,picture"
-        scope="user_friends,public_profile,user_status,user_posts,user_location"
-        callback={fbResponse} />
+      <div className="flex flex-center" style={{paddingTop:"200px"}}>
+        <FacebookLogin
+          appId="155523298304980"
+          autoLoad={false}
+          fields="name,email,picture"
+          scope="user_friends,public_profile,user_status,user_posts,user_location"
+          callback={fbResponse} />
+      </div>
+      <div className="flex flex-center">
+        <h4><br/>Just one step to get started, we promise.</h4>
+      </div>
+      
     </div>
   )
 }

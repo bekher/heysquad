@@ -10,10 +10,11 @@
     "local": {},
     "successRedirect": "/chat.html",
     "facebook": {
-      "clientID": "your facebook client id",
-      "clientSecret": "your facebook client secret",
+      "clientID": "155523298304980",
+      "clientSecret": "e251ed847ed46fd2234ccce92d489db4",
+      "profileFields": ["id", "displayName", "email"],
       "permissions": {
-        "scope": ["public_profile","email"]
+        "scope": ["public_profile","email","user_friends","user_status","user_posts","user_location"]
       }
     }
   }
