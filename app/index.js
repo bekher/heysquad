@@ -41,11 +41,78 @@ const ComposeMessage = React.createClass({
       <form className="flex flex-row flex-space-between" onSubmit={this.sendMessage}>
         <input type="text" name="text" className="flex flex-1"
           value={this.state.text} onChange={this.updateText} />
-        <button className="button-primary" type="submit">Send</button>
+        <button className="button-primary" type="submit" style={{"backgroundColor":"#00B781"}} >Send</button>
       </form>
     )
   }
 })
+
+const NewGroup = React.createClass({
+  getInitialState() {
+    return { query: '' }
+  },
+
+  updateText(ev) {
+    this.setState({ query: ev.target.value })
+  },
+
+  makeGroup(ev) {
+    app.service('groups').create(this.state)
+      .then(() => this.setState({ query: '' }))
+    ev.preventDefault()
+  },
+  
+  render() {
+    return (
+      <form className="flex flex-row flex-space-between" onSubmit={this.makeGroup}>
+        <input type="text" name="text" className="flex flex-1"
+          value={this.state.query} onChange={this.updateText} />
+        <button className="button-primary" type="submit" style={{"backgroundColor":"#00B781"}}>+</button>
+      </form>
+    )
+
+  }
+});
+
+const GroupList = React.createClass({
+  renderGroupItem(group) {
+    console.log(group);
+    return (
+      <li>
+        <a className="block relative" href="#">
+          <h5 className="">{group.topic || group.query}</h5>
+          &nbsp;
+          <span className="sent-date font-300">
+              {moment(group.createdAt).format('MMM Do, hh:mm:ss')}
+          </span>
+
+        </a>
+      </li>
+    )
+  },
+
+  render() {
+    const groups = this.props.groups || [];
+
+    return (
+      <aside className="sidebar col col-1 flex flex-column flex-space-between">
+        <header className="flex flex-row flex-center">
+          <h4 className="font-300 text-center">
+            <span className="font-600 online-count">{groups.length}</span> groups
+          </h4>
+        </header>
+          <NewGroup />
+
+        <ul className="flex flex-column flex-1 list-unstyled user-list">
+          {groups.map(group =>
+            this.renderGroupItem(group)
+          )}
+        </ul>
+      </aside>
+    )
+  }
+})
+
 
 const UserList = React.createClass({
   logout() {
@@ -81,32 +148,13 @@ const UserList = React.createClass({
           )}
         </ul>
         <footer className="flex flex-row flex-center">
-          <a href="#" className="logout button button-primary" onClick={this.logout}>Sign Out</a>
+          <a href="#" className="logout button button-primary" onClick={this.logout} style={{"backgroundColor":"#00B781"}}>Sign Out</a>
         </footer>
       </aside>
     )
   }
 })
-/*
-class GroupList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
 
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-
-  render() {
-
-  }
-}
-*/
 const MessageList = React.createClass({
   renderMessage(message) {
 
@@ -143,7 +191,8 @@ const ChatApp = React.createClass({
   getInitialState() {
     return {
       users: [],
-      messages: []
+      messages: [],
+      groups: []
     }
   },
 
@@ -155,12 +204,22 @@ const ChatApp = React.createClass({
   componentDidMount() {
     const userService = app.service('users')
     const messageService = app.service('messages')
+    const groupService = app.service('groups')
 
     // Find all users initially
     userService.find().then(page => this.setState({ users: page.data }))
     // Listen to new users so we can show them in real-time
     userService.on('created', user => this.setState({
       users: this.state.users.concat(user)
+    }))
+
+    groupService.find({
+      query: {
+        $sort: { createdAt: 1 }
+      }
+    }).then(page => this.setState({groups: page.data }))
+    groupService.on('created', group => this.setState({
+      groups: this.state.groups.concat(group)
     }))
 
     // Find the last 10 messages
@@ -179,8 +238,9 @@ const ChatApp = React.createClass({
   render() {
     return (
       <div className="flex flex-row flex-1 clear">
+        <GroupList groups={this.state.groups} />
         <UserList users={this.state.users} />
-        <div className="flex flex-column col col-9">
+        <div className="flex flex-column col col-6">
           <MessageList users={this.state.users} messages={this.state.messages} />
           <ComposeMessage />
         </div>
@@ -192,9 +252,9 @@ const ChatApp = React.createClass({
 const Header = () => {
   return (
     <div id="header">
-      <header className="title-bar flex flex-row flex-center">
+      <header className="title-bar flex flex-row flex-center" style={{backgroundColor: "#00B781"}}>
         <div className="title-wrapper block center-element">
-          <img className="logo" src="/images/logo-hs-green.svg" alt="HeySquad Login" />
+          <img className="logo" src="/images/logo-hs-white.svg" alt="HeySquad Login" />
         </div>
       </header>
     </div>

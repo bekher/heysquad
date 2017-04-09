@@ -45,5 +45,14 @@ app.use(compress())
   .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   .configure(middleware);
 app.ipcSock = ipcSock;
+ipcSock.on('recs', (res) => {
+  console.log("new rec");
+  console.log(recs);
+  /*
+  app.service('groups').patch(res.group, {
+
+  });
+  */
+});
 
 module.exports = app;

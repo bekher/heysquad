@@ -14,12 +14,14 @@ module.exports = function(options) {
     hook.groupCreate = true;
     hook.app.ipcSock.emit("newTopic", 
       {
-        "facebookId": hook.data.facebookId,
-        "string": hook.data.query
+        "facebookId": hook.params.user.facebookId,
+        "string": hook.data.query,
+        "group": hook.result._id
       });
-    hook.data.waiting = true;
+    /*
     hook.app.ipcSock.on('recs', (res) => {
-
+      
     });
+    */
   };
 };

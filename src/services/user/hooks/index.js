@@ -48,6 +48,6 @@ exports.after = {
   get: [],
   create: [newUser()],
   update: [],
-  patch: [newUser()],
+  patch: [],
   remove: []
 };
