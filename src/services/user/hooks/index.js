@@ -1,5 +1,7 @@
 'use strict';
 
+const getFbInfo = require('./getFbInfo');
+
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
@@ -17,9 +19,7 @@ exports.before = {
     auth.restrictToAuthenticated(),
     auth.restrictToOwner({ ownerField: '_id' })
   ],
-  create: [
-    auth.hashPassword()
-  ],
+  create: [getFbInfo()],
   update: [
     auth.verifyToken(),
     auth.populateUser(),
@@ -41,7 +41,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('password')],
+  all: [],
   find: [],
   get: [],
   create: [],
