@@ -18,23 +18,20 @@ const webpack = require('webpack');
 const config = require('../webpack.config.js');
 
 const app = feathers();
+const compiler = webpack(config);
 
 app.configure(configuration(path.join(__dirname, '..')));
 
 app.use(compress())
+  .options('*', cors())
+  .use(cors())
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .configure(hooks())
   .configure(rest())
   .configure(socketio())
   .configure(services)
-  .configure(middleware);
-
-// Host the REST api under /api
- const fullapp = feathers().use('/api', app);
- const compiler = webpack(config);
-
-fullapp.use(require('webpack-dev-middleware')(compiler, {
+  .use(require('webpack-dev-middleware')(compiler, {
     noInfo: false,
     publicPath: config.output.publicPath,
     watchOptions: {
@@ -43,10 +40,8 @@ fullapp.use(require('webpack-dev-middleware')(compiler, {
     },
   }))
   .use(require('webpack-hot-middleware')(compiler))
-  .configure(configuration(path.join(__dirname, '..')))
-  .options('*', cors())
-  .use(cors())
   .use('/', serveStatic( app.get('public') ))
-  .use(favicon( path.join(app.get('public'), 'favicon.ico') ));
+  .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
+  .configure(middleware);
 
-module.exports = fullapp;
+module.exports = app;
