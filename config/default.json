@@ -12,7 +12,7 @@
     "facebook": {
       "clientID": "155523298304980",
       "clientSecret": "e251ed847ed46fd2234ccce92d489db4",
-      "profileFields": ["id", "displayName", "email"],
+      "profileFields": ["id", "displayName", "email", "picture"],
       "permissions": {
         "authType": "rerequest",
         "scope": ["public_profile","email","user_friends","user_status","user_posts","user_location"]

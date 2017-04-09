@@ -53,11 +53,12 @@ const UserList = React.createClass({
   },
 
   renderUserItem(user) {
+    console.log(user);
     return (
       <li>
         <a className="block relative" href="#">
           <img src={user.avatar || PLACEHOLDER} className="avatar" />
-          <span className="absolute username">{user.email}</span>
+          <span className="absolute username">{user.facebook.name}</span>
         </a>
       </li>
     )
@@ -97,7 +98,7 @@ const MessageList = React.createClass({
         <img src={sender.avatar || PLACEHOLDER} alt={sender.email} className="avatar" />
         <div className="message-wrapper">
           <p className="message-header">
-            <span className="username font-600">{sender.email}</span>&nbsp
+            <span className="username font-600">{sender.email}</span>&nbsp;
             <span className="sent-date font-300">
               {moment(message.createdAt).format('MMM Do, hh:mm:ss')}
             </span>
@@ -128,7 +129,7 @@ const ChatApp = React.createClass({
   },
 
   componentDidUpdate: function() {
-    const node = this.getDOMNode().querySelector('.chat')
+    const node = ReactDOM.findDOMNode(this).querySelector('.chat')
     node.scrollTop = node.scrollHeight - node.clientHeight
   },
 
@@ -194,22 +195,26 @@ const App = () => {
 const fbResponse = (response) => {
   console.log(response.accessToken);
 }
+const fbCallback = (e) => {
+  e.preventDefault();
+  window.location.href='/auth/facebook';
+}
 
 import FacebookLogin from 'react-facebook-login';
 const Login = () => {
   return (
-    <div id="app" className="flex flex-column">
+    <div id="app" className="">
       <Header />
-      <div className="flex flex-center" style={{paddingTop:"200px"}}>
-        <FacebookLogin
-          appId="155523298304980"
-          autoLoad={false}
-          fields="name,email,picture"
-          scope="user_friends,public_profile,user_status,user_posts,user_location"
-          callback={fbResponse} />
+      <div className="container">
+        <div className="col-sm-6 col-sm-offset-3">
+          <a className="btn btn-block btn-social btn-lg btn-facebook">
+            <i className="fa fa-facebook"></i>
+            Sign in with Facebook
+          </a>
+        </div>
+        <div className="flex flex-center">
+          <p><br/>Just one step to get started, we promise.</p>
       </div>
-      <div className="flex flex-center">
-        <h4><br/>Just one step to get started, we promise.</h4>
       </div>
       
     </div>
