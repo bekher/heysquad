@@ -1,6 +1,8 @@
-# heysquad
+# HEYsquad
 
-> HeySquad chat app
+HEYsquad is an intelligent group creater and chat application. Given an input activity (eq. "running", "see a movie", "get lunch"), HEYsquad analyzes your Facebook friends, their interests, and your level of iteraction with them to intelligently suggest the perfect group to do that activity.
+
+HEYsquad was initially developed at [Bitcamp 2017](http://bitca.mp/) and submitted on [Devpost](https://devpost.com/software/heysquad).
 
 ## About
 
