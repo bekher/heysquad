@@ -14,7 +14,7 @@ module.exports = function() {
   // handling middleware should go last.
   const app = this;
 
-  app.get('/newQuery', newQuery(app));
+  app.post('/newQuery', newQuery(app));
   app.post('/signup', signup(app));
   app.use(notFound());
   app.use(logger(app));

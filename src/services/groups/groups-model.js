@@ -17,8 +17,18 @@ const groupsSchema = new Schema({
   topic: {
     type: String
   },
-  facebookIds: [{
-    type: String
+  fbUsers: [{
+    key: {
+      type: Number
+    },
+    value: {
+      id: {
+        type: String
+      },
+      name: {
+        type: String
+      }
+    }
   }],
   waiting: {
     type: Boolean,

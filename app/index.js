@@ -76,7 +76,6 @@ const NewGroup = React.createClass({
 
 const GroupList = React.createClass({
   renderGroupItem(group) {
-    console.log(group);
     return (
       <li>
         <a className="block relative" href="#">
@@ -115,25 +114,53 @@ const GroupList = React.createClass({
 
 
 const UserList = React.createClass({
+  getInitialState() {
+    return {
+      group : ""
+    }
+  },
   logout() {
     app.logout().then(() => window.location.href = '/login.html')
   },
 
-  renderUserItem(user) {
-    console.log(user);
+  renderNewUserItem(user) {
     return (
       <li>
         <a className="block relative" href="#">
-          <img src={user.avatar || PLACEHOLDER} className="avatar" />
+          <img src={ PLACEHOLDER} className="avatar" />
+          <span className="absolute username">{isNaN(user.value.id) ? user.value.id : user.value.name}</span>
+        </a>
+      </li>
+    )
+  },
+  renderUserItem(user) {
+    return (
+      <li>
+        <a className="block relative" href="#">
+          <img src={user.facebook.picture.data.url || PLACEHOLDER} className="avatar" />
           <span className="absolute username">{user.facebook.name}</span>
         </a>
       </li>
     )
   },
-
   render() {
+    const userService = app.service('users')
+    const groupService = app.service('groups')
     const users = this.props.users
-
+    var group = app.get('user').currentGroup;
+    groupService.get(group)
+    .then((gr) => {
+      console.log(gr);
+      this.state.group = gr || this.state.group;
+    });
+     userService.on('created', user => {
+       group = app.get('user').currentGroup;
+        groupService.get(group)
+        .then((gr) => {
+          console.log(gr);
+          this.state.group = gr || this.state.group;
+        });
+     });
     return (
       <aside className="sidebar col col-3 flex flex-column flex-space-between">
         <header className="flex flex-row flex-center">
@@ -143,7 +170,13 @@ const UserList = React.createClass({
         </header>
 
         <ul className="flex flex-column flex-1 list-unstyled user-list">
-          {users.map(user =>
+          {
+             (!!this.state.group) ?
+              this.state.group.fbUsers.slice(0,5).map(user =>
+                this.renderNewUserItem(user)
+              )
+            :
+          users.map(user =>
             this.renderUserItem(user)
           )}
         </ul>
@@ -159,6 +192,7 @@ const MessageList = React.createClass({
   renderMessage(message) {
 
     const sender = typeof message.sentBy === 'object' ? message.sentBy : dummyUser
+    console.log(message);
 
     return (
       <div className="message flex flex-row">
@@ -192,7 +226,9 @@ const ChatApp = React.createClass({
     return {
       users: [],
       messages: [],
-      groups: []
+      groups: [],
+      currentGroup: "Viewing all groups",
+      me: null
     }
   },
 
@@ -205,7 +241,7 @@ const ChatApp = React.createClass({
     const userService = app.service('users')
     const messageService = app.service('messages')
     const groupService = app.service('groups')
-
+    
     // Find all users initially
     userService.find().then(page => this.setState({ users: page.data }))
     // Listen to new users so we can show them in real-time
@@ -222,6 +258,17 @@ const ChatApp = React.createClass({
       groups: this.state.groups.concat(group)
     }))
 
+    var curQuery = localStorage.getItem("groupQuery");
+    if (!!curQuery) {
+      localStorage.setItem("cachedQuery", curQuery);
+      localStorage.removeItem("groupQuery");
+      this.state.currentGroup = curQuery;
+      app.service('groups').create({query: curQuery})
+        .then(() => {this.state.currentGroup = curQuery} )
+
+    } else if (!!localStorage.getItem("cachedQuery") && localStorage.getItem("cachedQuery") !== 'null') {
+      this.state.currentGroup = localStorage.getItem("cachedQuery") ;
+    }
     // Find the last 10 messages
     messageService.find({
       query: {
@@ -241,7 +288,9 @@ const ChatApp = React.createClass({
         <GroupList groups={this.state.groups} />
         <UserList users={this.state.users} />
         <div className="flex flex-column col col-6">
-          <MessageList users={this.state.users} messages={this.state.messages} />
+        <p></p>
+        <h4>Current group: {this.state.currentGroup}</h4>
+          <MessageList users={this.state.users} messages={this.state.messages} curGroup = {this.state.currentGroup} />
           <ComposeMessage />
         </div>
       </div>

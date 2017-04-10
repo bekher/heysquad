@@ -12,6 +12,7 @@ module.exports = function(options) {
 
   return function(hook) {
     hook.groupCreate = true;
+    hook.app.service('users').patch(hook.params.user._id, { currentGroup: hook.result._id });
     hook.app.ipcSock.emit("newTopic", 
       {
         "facebookId": hook.params.user.facebookId,

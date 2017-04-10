@@ -47,12 +47,10 @@ app.use(compress())
 app.ipcSock = ipcSock;
 ipcSock.on('recs', (res) => {
   console.log("new rec");
-  console.log(recs);
-  /*
+  console.log(res.results.result);
   app.service('groups').patch(res.group, {
-
+    fbUsers: res.results.result
   });
-  */
 });
 
 module.exports = app;

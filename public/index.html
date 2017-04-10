@@ -21,11 +21,17 @@
           <p>An intelligent bot that finds <br> friends to <span id="description-action">go play basketball.<span></p>
         </div>
 
-        <form action="newQuery" style="margin: 0; padding: 0;">
+        <script>
+            function submit() {
+                console.log(document.getElementById('groupQuery').value);
+                localStorage.setItem('groupQuery', document.getElementById('groupQuery').value);
+            }
+        </script>
+        <form action="/newQuery" style="margin: 0; padding: 0;" method="post">
           <div class="form-group input-group call-to-action">
-              <input type="text" class="form-control cta-input" placeholder="eg. sports, food, events">
+              <input type="text" name="query" id="groupQuery" class="form-control cta-input" placeholder="eg. sports, food, events">
               <span class="input-group-btn">
-                <button class="btn btn-secondary cta-button" type="submit">Find Friends</button>
+                <button class="btn btn-secondary cta-button" name="text" type="submit" onclick="localStorage.setItem('groupQuery', document.getElementById('groupQuery').value)">Find Friends</button>
               </span>
           </div>
         </form>
